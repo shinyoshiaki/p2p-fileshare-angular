@@ -1,9 +1,11 @@
 import sha1 from "sha1";
 import { Buffer } from "buffer";
 import WebRTC from "webrtc4me";
-import { Observable, Subject } from "rxjs";
+import { Subject } from "rxjs";
 
-const chunkSize = 16384;
+const chunkSize = 16000;
+const sleep = parseInt(((256 * 1000) / chunkSize).toString());
+console.log(sleep);
 
 export function getSliceArrayBuffer(blob: Blob) {
   console.log("blob blob", blob);
@@ -121,8 +123,7 @@ export class FileManager {
     let i = 0;
     for (let chunk of chunks) {
       this.peer.send(chunk, this.label);
-      if (i % 16 === 0) await new Promise(r => setTimeout(r, 0));
-      i++;
+      if (i++ % sleep === 0) await new Promise(r => setTimeout(r, 0));
     }
 
     this.peer.send(JSON.stringify({ state: "end" }), this.label);
