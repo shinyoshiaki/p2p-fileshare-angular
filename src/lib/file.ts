@@ -1,4 +1,4 @@
-const sha1 = require("sha1");
+import sha1 from "sha1";
 import { Buffer } from "buffer";
 import WebRTC from "webrtc4me";
 
