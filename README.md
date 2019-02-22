@@ -1,1 +1,1 @@
-https://shinyoshiaki.github.io/p2p-fileshare-angular/docs/p2p-fileshare-angular/
+https://shinyoshiaki.github.io/p2p-fileshare-angular/docs/
