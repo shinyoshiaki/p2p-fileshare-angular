@@ -1,6 +1,6 @@
 import { Component, OnInit, NgZone } from "@angular/core";
 import { SignalingService } from "../../services/signaling.service";
-import { FileManager, getChunksHash, blob2DataUrl } from "../../../lib/file";
+import { FileManager } from "../../../lib/file";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -35,8 +35,7 @@ export class DownloadComponent implements OnInit {
           file.state.subscribe(action => {
             if (action.type === "downloaded") {
               const { chunks, name } = action.payload;
-              const hash = getChunksHash(chunks);
-              console.log({ chunks, hash });
+
               const blob = new Blob(chunks);
               const url = window.URL.createObjectURL(blob);
               const anchor = document.createElement("a");

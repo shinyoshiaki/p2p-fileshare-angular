@@ -1,9 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import {
-  getSliceArrayBuffer,
-  getChunksHash,
-  FileManager
-} from "../../../lib/file";
+import { getSliceArrayBuffer, FileManager } from "../../../lib/file";
 import { SignalingService } from "../../services/signaling.service";
 import { Subscription } from "rxjs";
 
@@ -13,7 +9,6 @@ import { Subscription } from "rxjs";
   styleUrls: ["./select-file.component.css"]
 })
 export class SelectFileComponent implements OnInit {
-  chunks: ArrayBuffer[];
   roomId: string;
   opening = false;
   subscribe: Subscription;
@@ -23,18 +18,26 @@ export class SelectFileComponent implements OnInit {
   ngOnInit() {}
 
   async openFile(event: any) {
-    const blob = event.target.files[0];
-    this.opening = true;
-    const arr = await getSliceArrayBuffer(blob).catch(console.log);
-    this.opening = false;
-    if (!arr) return;
-    const hash = getChunksHash(arr);
-    console.log({ arr, hash });
-    this.chunks = arr;
     if (this.subscribe) this.subscribe.unsubscribe();
+
+    const blob: File = event.target.files[0];
+    const hash = Math.random().toString();
+
     this.subscribe = this.signaling.createRoom(hash).subscribe(peer => {
       const file = new FileManager(peer, "file-test");
-      file.send(this.chunks, blob.name);
+      file.sendStart(blob.name, blob.size);
+      this.opening = true;
+      const observer = getSliceArrayBuffer(blob);
+      observer.subscribe(
+        ab => {
+          file.sendChunk(ab);
+        },
+        () => {},
+        () => {
+          file.sendEnd();
+          this.opening = false;
+        }
+      );
     });
     this.roomId = hash;
   }
