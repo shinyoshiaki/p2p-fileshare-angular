@@ -2,4 +2,8 @@
   <input [(ngModel)]="roomId" placeholder="filehash" />
   <button (click)="joinRoom()">download</button>
   <div style="padding-left: 30px">{{ viewRoomId }}</div>
+  <p *ngIf="progress">
+    {{ progress }}<br />
+    {{ timer }}
+  </p>
 </div>

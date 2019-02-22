@@ -1,6 +1,9 @@
 import sha1 from "sha1";
 import { Buffer } from "buffer";
 import WebRTC from "webrtc4me";
+import { Observable, Subject } from "rxjs";
+
+const chunkSize = 16384;
 
 export function getSliceArrayBuffer(blob: Blob) {
   console.log("blob blob", blob);
@@ -8,7 +11,6 @@ export function getSliceArrayBuffer(blob: Blob) {
     let arr = [];
     const r = new FileReader(),
       blobSlice = File.prototype.slice,
-      chunkSize = 16384,
       chunks = Math.ceil(blob.size / chunkSize);
     let currentChunk = 0;
     r.onerror = e => {
@@ -51,10 +53,30 @@ export function blob2DataUrl(blob) {
   });
 }
 
+interface Action {
+  type: string;
+  payload: any;
+}
+
+class Downloading implements Action {
+  type: "downloading";
+  payload: { now: number; size: number };
+}
+
+class Downloaded implements Action {
+  type: "downloaded";
+  payload: { chunks: ArrayBuffer[]; name: string };
+}
+
+type Actions = Downloading | Downloaded;
+
 export class FileManager {
-  onFile: (chunks: ArrayBuffer[], name: string) => void;
+  subject = new Subject<Actions>();
+  state = this.subject.asObservable();
+
   private chunks: ArrayBuffer[] = [];
   private name: string;
+  private size: number;
 
   constructor(private peer: WebRTC, private label?: string) {
     if (!label) label = "file";
@@ -68,15 +90,23 @@ export class FileManager {
             case "start":
               this.chunks = [];
               this.name = obj.name;
+              this.size = obj.size;
               break;
             case "end":
-              this.onFile(this.chunks, this.name);
+              this.subject.next({
+                type: "downloaded",
+                payload: { chunks: this.chunks, name: this.name }
+              } as Downloaded);
               this.chunks = [];
               this.name = "";
               break;
           }
         } catch (error) {
           this.chunks.push(data);
+          this.subject.next({
+            type: "downloading",
+            payload: { now: this.chunks.length, size: this.size }
+          } as Downloading);
         }
       }
     }, label);
@@ -84,18 +114,17 @@ export class FileManager {
 
   async send(chunks: ArrayBuffer[], name: string) {
     this.peer.send(
-      JSON.stringify({ state: "start", length: chunks.length, name }),
+      JSON.stringify({ state: "start", size: chunks.length, name }),
       this.label
     );
 
+    let i = 0;
     for (let chunk of chunks) {
       this.peer.send(chunk, this.label);
-      await new Promise(r => setTimeout(r, 1));
+      if (i % 16 === 0) await new Promise(r => setTimeout(r, 0));
+      i++;
     }
 
-    this.peer.send(
-      JSON.stringify({ state: "end", length: chunks.length }),
-      this.label
-    );
+    this.peer.send(JSON.stringify({ state: "end" }), this.label);
   }
 }
