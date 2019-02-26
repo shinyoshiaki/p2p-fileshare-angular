@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy":"ng build --prod --output-path docs --base-href /p2p-fileshare-angular/"
+    "deploy":"ng build --prod --output-path docs --base-href /file-share/"
   },
   "private": true,
   "dependencies": {

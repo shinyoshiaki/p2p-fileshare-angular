@@ -1,19 +1,19 @@
 {
   "configVersion": 1,
-  "index": "/p2p-fileshare-angular/index.html",
+  "index": "/file-share/index.html",
   "assetGroups": [
     {
       "name": "app",
       "installMode": "prefetch",
       "updateMode": "prefetch",
       "urls": [
-        "/p2p-fileshare-angular/es2015-polyfills.4ce7b98e419ed6576ade.js",
-        "/p2p-fileshare-angular/favicon.ico",
-        "/p2p-fileshare-angular/index.html",
-        "/p2p-fileshare-angular/main.e7d9d9f4366ce0a31d98.js",
-        "/p2p-fileshare-angular/polyfills.6666d6f036b0cc510933.js",
-        "/p2p-fileshare-angular/runtime.a5dd35324ddfd942bef1.js",
-        "/p2p-fileshare-angular/styles.3ff695c00d717f2d2a11.css"
+        "/file-share/es2015-polyfills.4ce7b98e419ed6576ade.js",
+        "/file-share/favicon.ico",
+        "/file-share/index.html",
+        "/file-share/main.e7d9d9f4366ce0a31d98.js",
+        "/file-share/polyfills.6666d6f036b0cc510933.js",
+        "/file-share/runtime.a5dd35324ddfd942bef1.js",
+        "/file-share/styles.3ff695c00d717f2d2a11.css"
       ],
       "patterns": []
     },
@@ -22,35 +22,35 @@
       "installMode": "lazy",
       "updateMode": "prefetch",
       "urls": [
-        "/p2p-fileshare-angular/assets/icons/icon-128x128.png",
-        "/p2p-fileshare-angular/assets/icons/icon-144x144.png",
-        "/p2p-fileshare-angular/assets/icons/icon-152x152.png",
-        "/p2p-fileshare-angular/assets/icons/icon-192x192.png",
-        "/p2p-fileshare-angular/assets/icons/icon-384x384.png",
-        "/p2p-fileshare-angular/assets/icons/icon-512x512.png",
-        "/p2p-fileshare-angular/assets/icons/icon-72x72.png",
-        "/p2p-fileshare-angular/assets/icons/icon-96x96.png"
+        "/file-share/assets/icons/icon-128x128.png",
+        "/file-share/assets/icons/icon-144x144.png",
+        "/file-share/assets/icons/icon-152x152.png",
+        "/file-share/assets/icons/icon-192x192.png",
+        "/file-share/assets/icons/icon-384x384.png",
+        "/file-share/assets/icons/icon-512x512.png",
+        "/file-share/assets/icons/icon-72x72.png",
+        "/file-share/assets/icons/icon-96x96.png"
       ],
       "patterns": []
     }
   ],
   "dataGroups": [],
   "hashTable": {
-    "/p2p-fileshare-angular/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
-    "/p2p-fileshare-angular/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
-    "/p2p-fileshare-angular/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
-    "/p2p-fileshare-angular/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
-    "/p2p-fileshare-angular/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
-    "/p2p-fileshare-angular/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
-    "/p2p-fileshare-angular/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
-    "/p2p-fileshare-angular/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
-    "/p2p-fileshare-angular/es2015-polyfills.4ce7b98e419ed6576ade.js": "018be373ae4c7714a9968bc97054d6217c7e369f",
-    "/p2p-fileshare-angular/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
-    "/p2p-fileshare-angular/index.html": "3377d17c7a75669c78a5236c2ecbf9ecbefb1d69",
-    "/p2p-fileshare-angular/main.e7d9d9f4366ce0a31d98.js": "ece1ae12cf8e364f014a38a543563055e226ddd3",
-    "/p2p-fileshare-angular/polyfills.6666d6f036b0cc510933.js": "a0fa042a7cd96d0967a6ebe953ae6a84330835da",
-    "/p2p-fileshare-angular/runtime.a5dd35324ddfd942bef1.js": "b62956c2192bfe5516d6374e753773901ed50ec5",
-    "/p2p-fileshare-angular/styles.3ff695c00d717f2d2a11.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+    "/file-share/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
+    "/file-share/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
+    "/file-share/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
+    "/file-share/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
+    "/file-share/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
+    "/file-share/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
+    "/file-share/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
+    "/file-share/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
+    "/file-share/es2015-polyfills.4ce7b98e419ed6576ade.js": "018be373ae4c7714a9968bc97054d6217c7e369f",
+    "/file-share/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
+    "/file-share/index.html": "e39a58a08ac96d2d788073a7e5bd0eaf4e12ceb1",
+    "/file-share/main.e7d9d9f4366ce0a31d98.js": "ece1ae12cf8e364f014a38a543563055e226ddd3",
+    "/file-share/polyfills.6666d6f036b0cc510933.js": "a0fa042a7cd96d0967a6ebe953ae6a84330835da",
+    "/file-share/runtime.a5dd35324ddfd942bef1.js": "b62956c2192bfe5516d6374e753773901ed50ec5",
+    "/file-share/styles.3ff695c00d717f2d2a11.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
   },
   "navigationUrls": [
     {
