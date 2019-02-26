@@ -4,11 +4,12 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy":"ng build --prod --output-path docs --base-href /p2p-fileshare-angular/"
+    "deploy": "ng build --prod --output-path docs --base-href /p2p-fileshare-angular/",
+    "pwa": "http-server -p 8080 -c-1 dist/file-share"
   },
   "private": true,
   "dependencies": {
