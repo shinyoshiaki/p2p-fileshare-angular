@@ -10,7 +10,7 @@ import { Subscription } from "rxjs";
 })
 export class SelectFileComponent implements OnInit {
   roomId: string;
-  opening = false;
+
   subscribe: Subscription;
   uploading = false;
 
@@ -27,7 +27,6 @@ export class SelectFileComponent implements OnInit {
     this.subscribe = this.signaling.createRoom(hash).subscribe(peer => {
       this.zone.run(() => {
         this.uploading = true;
-        this.opening = true;
       });
 
       const file = new FileManager(peer, "file-test");
@@ -43,17 +42,16 @@ export class SelectFileComponent implements OnInit {
         },
         () => {
           file.sendEnd();
-          this.zone.run(() => {
-            this.opening = false;
-          });
         }
       );
       peer.addOnData(msg => {
         try {
           if (msg.label === file.label) {
             const obj = JSON.parse(msg.data);
+            console.log({ obj, file });
             const { state, name } = obj;
             if (state === "complete" && name === file.name) {
+              console.log("complete");
               this.zone.run(() => {
                 this.uploading = false;
               });

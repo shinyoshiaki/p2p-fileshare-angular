@@ -97,6 +97,7 @@ export class FileManager {
   }
 
   sendStart(name: string, size: number) {
+    this.name = name;
     this.peer.send(JSON.stringify({ state: "start", size, name }), this.label);
   }
 
