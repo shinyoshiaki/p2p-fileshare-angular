@@ -57,4 +57,9 @@ export class DownloadComponent implements OnInit {
     this.viewRoomId = this.roomId;
     this.roomId = "";
   }
+
+  onRead(result: string) {
+    console.log(result);
+    this.roomId = result;
+  }
 }

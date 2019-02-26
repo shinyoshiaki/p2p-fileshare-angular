@@ -1,0 +1,31 @@
+<div *ngIf="availableDevices" style="display: flex">
+  <div style="padding-right: 10px">read filehash by qr</div>
+  <select (change)="onDeviceSelectChange($event.target.value)">
+    <option value="" [selected]="!selectedDevice">No Device</option>
+    <option
+      *ngFor="let device of availableDevices"
+      [value]="device.deviceId"
+      [selected]="selectedDevice && device.deviceId === selectedDevice.deviceId"
+      >{{ device.label }}</option
+    >
+  </select>
+</div>
+
+<div
+  [hidden]="!hasCameras || !this.selectedDevice"
+  style="width: 50vh;height: 50vh;"
+>
+  <zxing-scanner
+    #scanner
+    class="test-class"
+    start="true"
+    [device]="selectedDevice"
+    (scanSuccess)="handleQrCodeResult($event)"
+  ></zxing-scanner>
+</div>
+
+<div *ngIf="hasPermission === false">
+  <h1>
+    You denied the camera permissions, we can't scan anything without it. 😪
+  </h1>
+</div>
