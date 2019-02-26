@@ -55,10 +55,10 @@ export class FileManager {
   state = this.subject.asObservable();
 
   private chunks: ArrayBuffer[] = [];
-  private name: string;
+  public name: string;
   private size: number;
 
-  constructor(private peer: WebRTC, private label?: string) {
+  constructor(private peer: WebRTC, public label?: string) {
     if (!label) label = "file";
     console.log({ label });
     peer.addOnData(raw => {
@@ -77,6 +77,10 @@ export class FileManager {
                 type: "downloaded",
                 payload: { chunks: this.chunks, name: this.name }
               } as Downloaded);
+              peer.send(
+                JSON.stringify({ state: "complete", name: this.name }),
+                this.label
+              );
               this.chunks = [];
               this.name = "";
               break;

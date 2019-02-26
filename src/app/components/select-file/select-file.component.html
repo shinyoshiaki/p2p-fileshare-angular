@@ -1,8 +1,11 @@
+<input type="file" id="raised-button-file" (change)="openFile($event)" />
 <p *ngIf="opening">
   loading
+</p>
+<p *ngIf="uploading">
+  uploading
 </p>
 <p>
   {{ roomId }}
 </p>
-<input type="file" id="raised-button-file" (change)="openFile($event)" />
 <app-sdp-show-qr [text]="roomId"></app-sdp-show-qr>

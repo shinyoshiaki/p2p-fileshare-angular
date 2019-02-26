@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, NgZone } from "@angular/core";
 import { getSliceArrayBuffer, FileManager } from "../../../lib/file";
 import { SignalingService } from "../../services/signaling.service";
 import { Subscription } from "rxjs";
@@ -12,8 +12,9 @@ export class SelectFileComponent implements OnInit {
   roomId: string;
   opening = false;
   subscribe: Subscription;
+  uploading = false;
 
-  constructor(private signaling: SignalingService) {}
+  constructor(private signaling: SignalingService, private zone: NgZone) {}
 
   ngOnInit() {}
 
@@ -24,20 +25,42 @@ export class SelectFileComponent implements OnInit {
     const hash = Math.random().toString();
 
     this.subscribe = this.signaling.createRoom(hash).subscribe(peer => {
+      this.zone.run(() => {
+        this.uploading = true;
+        this.opening = true;
+      });
+
       const file = new FileManager(peer, "file-test");
       file.sendStart(blob.name, blob.size);
-      this.opening = true;
+
       const observer = getSliceArrayBuffer(blob);
       observer.subscribe(
         ab => {
           file.sendChunk(ab);
         },
-        () => {},
+        () => {
+          console.log("error");
+        },
         () => {
           file.sendEnd();
-          this.opening = false;
+          this.zone.run(() => {
+            this.opening = false;
+          });
         }
       );
+      peer.addOnData(msg => {
+        try {
+          if (msg.label === file.label) {
+            const obj = JSON.parse(msg.data);
+            const { state, name } = obj;
+            if (state === "complete" && name === file.name) {
+              this.zone.run(() => {
+                this.uploading = false;
+              });
+            }
+          }
+        } catch (error) {}
+      });
     });
     this.roomId = hash;
   }

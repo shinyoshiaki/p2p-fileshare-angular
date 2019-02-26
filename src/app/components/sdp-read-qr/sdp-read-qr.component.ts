@@ -50,6 +50,7 @@ export class SdpReadQrComponent implements OnInit {
     console.log("Result: ", resultString);
     this.qrResultString = resultString;
     this.onRead.emit(resultString);
+    this.selectedDevice = undefined;
   }
 
   onDeviceSelectChange(selectedValue: string) {
